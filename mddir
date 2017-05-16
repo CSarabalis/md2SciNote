@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Searches for markdown files in the specified directory and runs mdgen on them
+
+# Syntax
+# mddir name_to_search your_directory
+
+# Example: find all md files called "LOG" in the current directory, and generate the html
+# mddir LOG ./
+# (or could just do this: mddir LOG)
+
+for filename in $(find ${2} -name ${1}); do
+	mdgen $filename
+done

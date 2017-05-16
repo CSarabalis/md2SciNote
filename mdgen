@@ -2,11 +2,10 @@
 
 # Generates html from a markdown file and opens it in the browser
 # before removing the evidence.
-
 # prepend with strapdown.js header and mathjax script
-cat ./mdgenerator/prepend.html > ${1}.html
+cat $(dirname $(which mdgen))/mdgenerator/prepend.html > ${1}.html
 # insert the markdown
 #pandoc -t html --mathjax $1 >> ${1}.html
-./mdgenerator/parse.py $1 >> ${1}.html
+$(dirname $(which mdgen))/mdgenerator/parse.py $1 >> ${1}.html
 # append with strapdown footer
-cat ./mdgenerator/append.html  >> ${1}.html
+cat $(dirname $(which mdgen))/mdgenerator/append.html  >> ${1}.html
