@@ -8,5 +8,5 @@
 
 **Terminal Commands**
 * `mdgen LOG` produces an html file LOG.html.
-* `mddir name_to_search your_directory` searches for markdown files in the specified directory and runs mdgen on them
+* `mddir name_to_search your_directory` searches for markdown files in the specified directory and runs `mdgen` on them
   * Example: `mddir LOG` finds all files called LOG in the current directory (plus subdirectories) and generates an html file LOG.html
