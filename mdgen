@@ -5,22 +5,23 @@
 
 # -o option opens the .html file after generation
 
-if  [[ $1 = "-o" ]]; then
+if  [ $1 = "-o" ]; then
     # prepend with strapdown.js header and mathjax script
 	cat $(dirname $(which mdgen))/mdgenerator/prepend.html > ${2}.html
 	# insert the markdown
 	#pandoc -t html --mathjax $1 >> ${1}.html
-	$(dirname $(which mdgen))/mdgenerator/parse.py $2 >> ${2}.html
+	python3 $(dirname $(which mdgen))/mdgenerator/parse.py $2 >> ${2}.html
 	# append with strapdown footer
 	cat $(dirname $(which mdgen))/mdgenerator/append.html  >> ${2}.html
 	# Open the .html file
-	open ${2}.html
+	google-chrome ${2}.html
 else
 	# prepend with strapdown.js header and mathjax script
 	cat $(dirname $(which mdgen))/mdgenerator/prepend.html > ${1}.html
 	# insert the markdown
 	#pandoc -t html --mathjax $1 >> ${1}.html
-	$(dirname $(which mdgen))/mdgenerator/parse.py $1 >> ${1}.html
+	python3 $(dirname $(which mdgen))/mdgenerator/parse.py $1 >> ${1}.html
 	# append with strapdown footer
 	cat $(dirname $(which mdgen))/mdgenerator/append.html  >> ${1}.html
+
 fi

@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 import re as re
 import sys
 
