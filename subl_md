@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Save current md file open in sublime, generate html using mdgen, refresh all visible instances of chrome
+
+# This script is meant to be called as a shortcut from sublime. It won't work from the terminal.
+
+
+mdgen -r $(python3 $(dirname $(which mdgen))/sublime_compiler/get_path_sublime.py)
