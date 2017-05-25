@@ -2,6 +2,8 @@
 import subprocess
 import sys
 
+# This compiler relies on finding the file location from the sublime window's title. On OSX you need to add the line ""show_full_path": true" to your user preferences file in Sublime.
+
 # save current active window
 subprocess.Popen(["/bin/sh", "-c", "xdotool getactivewindow key 'ctrl+s'"])
 

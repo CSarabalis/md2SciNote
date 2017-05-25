@@ -27,9 +27,15 @@ elif [ $1 = "-r" ]; then
 	cat $(dirname $(which mdgen))/mdgenerator/append.html  >> ${2}.html
 	
 	# refresh all open, visible tabs of chrome
-	for pid in $(xdotool search --onlyvisible --class chrome); do
-    	xdotool windowfocus $pid key 'ctrl+r'
-	done
+		# OSX version to refresh visible chrome tab
+		if [[ "$OSTYPE" == "darwin"* ]]; then
+			osascript -e 'tell application "Google Chrome" to tell the active tab of its first window to reload'
+		else
+		# Linux version
+			for pid in $(xdotool search --onlyvisible --class chrome); do
+		    	xdotool windowfocus $pid key 'ctrl+r'
+			done
+		fi
 
 else
 	# prepend with strapdown.js header and mathjax script
