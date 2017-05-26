@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Generates html from a markdown file and opens it in the browser
 # before removing the evidence.
