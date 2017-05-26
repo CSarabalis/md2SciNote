@@ -1,0 +1,35 @@
+# Sublime to Markdown Compiler
+
+These instructions show how to get Sublime Text 2 to build your markdown files using `mdgen` directly from the Sublime interface.
+
+* Create a new build (under `Tools > Build System > New Build System`). Call it `mdgen.sublime-build`, and it should be saved in `~/Library/Application\ Support/Sublime\ Text\ 2/Packages/User` if you need to find it again.
+
+* Copy and paste the following code:
+```
+{
+    "cmd": ["mdgen -r '$file'"],
+    "shell": true,
+
+    "variants": [
+
+        { "name": "Run",
+          "cmd": ["mdgen -o '$file'"],
+          "shell": true
+        }
+    ]
+}
+```
+This will run `mdgen -r` when you use the shortcut `ctrl+b` and run `mdgen -o` when you use the shortcut `ctrl+shift+b`.
+
+* There may be path issues finding `mdgen` if you open Sublime from the dock -- this is because Sublime will just use its own default path. To use your `.bash_profile` or `.bash_rc` path, you need to start Sublime from a terminal using the command `subl`.
+
+* Once you've saved the build, make sure it is selected as the default build under `Tools > Build System > mdgen`.
+
+* The last thing to check is whether your key bindings are correct. Go to `Sublime Text 2 > Preferences > Key Bindings - Default` and make sure you have the following hotkeys:
+```
+{ "keys": ["super+b"], "command": "build" },
+{ "keys": ["super+shift+b"], "command": "build", "args": {"variant": "Run"} }
+```
+*NOTE:* These are for OSX... on Linux `super` may be replaced by `ctrl` -- this is ok, you just need to know what the hotkeys are. Make sure that the name of `"variant"` is `"Run"`, otherwise you won't be able to use `mdgen -o` for the alternate build.
+
+Happy building!

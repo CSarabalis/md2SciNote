@@ -8,6 +8,30 @@
 
 **Terminal Commands:**
 * `mdgen LOG` produces an html file LOG.html.
+	* `-r` option refreshes all visible tabs of Chrome after compiling .html file.
+	* `-o` option opens a new tab in Chrome to display .html file.
 * `mddir name_to_search your_directory` searches for markdown files in the specified directory and runs `mdgen` on them
   * Example: `mddir LOG` finds all files called LOG in the current directory (plus subdirectories) and generates an html file LOG.html
-* `subl_md` can be mapped to a hotkey. Then it will automatically save the current sublime file (must be focused), made the html file, and then refresh the visible tab of all chrome windows.
+
+**Sublime Compiler:**
+* [Instructions](./sublime_compiler) to compile and view .html directly from Sublime
+
+## Known issues
+
+* **`mdgen` on OSX:** The `-r` and `-o` options use the linux bash command `google-chrome` to inteface with chrome. There isn't an equivalent command on OSX, so I recommend adding a file called `google-chrome` to a local `/bin` on your path:
+```
+#!/bin/bash
+
+# Call chrome from command line
+    site=""
+    if [[ -f "$(pwd)/$1" ]]; then
+        site="$(pwd)/$1"
+    elif [[ "$1" == '/'* ]]; then
+        site="file://$1"
+    elif [[ "$1" =~ "^http" ]]; then
+        site="$1"
+    else
+        site="http://$1"
+    fi
+    /usr/bin/open -a "/Applications/Google Chrome.app" "$site";
+```
