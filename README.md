@@ -12,6 +12,7 @@
 	* `-o` option opens a new tab in Chrome to display .html file.
 * `mddir name_to_search your_directory` searches for markdown files in the specified directory and runs `mdgen` on them
   * Example: `mddir LOG` finds all files called LOG in the current directory (plus subdirectories) and generates an html file LOG.html
+* `indexgen filename_to_index index_filename` produces a html file INDEX.html which has a directory structure and has links to all LOG files.
 
 **Sublime Compiler:**
 * [Instructions](./sublime_compiler) to compile and view .html directly from Sublime
