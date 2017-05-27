@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Generate an index file in markdown, then call mdgen to create an html file with
+# links to every single file with name "filename" in the directory + subdirectories
+
+# SYNTAX
+# indexgen filename index_filename
+# EXAMPLE: indexgen LOG INDEX
+
+python3 $(dirname $(which indexgen))/index_generator/index_generator.py ${1} ${2}
