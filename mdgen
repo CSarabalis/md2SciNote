@@ -32,9 +32,13 @@ elif [ $1 = "-r" ]; then
 			osascript -e 'tell application "Google Chrome" to tell the active tab of its first window to reload'
 		else
 		# Linux version
+			focused_window_id=$(xdotool getwindowfocus) # get current focused window
+			# Refresh Chrome
 			for pid in $(xdotool search --onlyvisible --class chrome); do
 		    	xdotool windowfocus $pid key 'ctrl+r'
 			done
+			# Switch back to original window
+			xdotool windowfocus $focused_window_id
 		fi
 
 else
