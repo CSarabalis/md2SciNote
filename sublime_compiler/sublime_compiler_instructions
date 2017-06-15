@@ -9,7 +9,7 @@ These instructions show how to get Sublime Text 2 to build your markdown files u
 {
     "cmd": ["mdgen -r '$file'"],
     "shell": true,
-
+    "path": "/your/path/here:/etc/etc/etc",
     "variants": [
 
         { "name": "Run",
@@ -19,7 +19,7 @@ These instructions show how to get Sublime Text 2 to build your markdown files u
     ]
 }
 ```
-This will run `mdgen -r` when you use the shortcut `ctrl+b` and run `mdgen -o` when you use the shortcut `ctrl+shift+b`.
+This will run `mdgen -r` when you use the shortcut `ctrl+b` and run `mdgen -o` when you use the shortcut `ctrl+shift+b`. You will need to put all relevant paths into the `path` variable -- janky work around, but I couldn't figure out how to get the user's path if they didn't start a clean instance of sublime from the terminal (in which case sublime acquires the terminal's path variable).
 
 * There may be path issues finding `mdgen` if you open Sublime from the dock -- this is because Sublime will just use its own default path. To use your `.bash_profile` or `.bash_rc` path, you need to start Sublime from a terminal using the command `subl`.
 
