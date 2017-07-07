@@ -1,6 +1,6 @@
 # md2notes
 
-**md2notes** is a rude little python program that converts notes with latex taken in markdown into html using [strapdown.js](http://strapdownjs.com/).  
+**md2notes** is a rude little python program that converts notes with latex taken in markdown into html using [strapdown.js](http://strapdownjs.com/) and [MathJax](https://www.mathjax.org/).  
 
 **Syntax:**
 * Math is delimited by `\(` and `\)` (inline) and `\[` and `\]` and is rendered with MathJax.
