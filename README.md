@@ -4,7 +4,7 @@
 
 **Syntax:**
 * Math is delimited by `\(` and `\)` (inline) and `\[` and `\]` and is rendered with MathJax.
-* Output from the linux `date` command is formatted by the parser.
+* Output from the linux `date` command is formatted by the parser by including a line with `#(your_date_here)`.
 
 **Terminal Commands:**
 * `mdgen LOG` produces an html file LOG.html.
