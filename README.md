@@ -1,10 +1,10 @@
 # md2notes
 
-**md2notes** is a rude little python program that converts notes with latex taken in markdown into html using [strapdown.js](http://strapdownjs.com/).  
+**md2notes** is a rude little python program that converts notes with latex taken in markdown into html using [strapdown.js](http://strapdownjs.com/) and [MathJax](https://www.mathjax.org/).  
 
 **Syntax:**
-* Math is delimited by \( and \) (inline) and \[ and \] and is rendered with MathJax.
-* Output from the linux `date` command is formatted by the parser.
+* Math is delimited by `\(` and `\)` (inline) and `\[` and `\]` and is rendered with MathJax.
+* Output from the linux `date` command is formatted by the parser by including a line with `#(your_date_here)`.
 
 **Terminal Commands:**
 * `mdgen LOG` produces an html file LOG.html.
@@ -26,7 +26,7 @@
 # Call chrome from command line
     site=""
     if [[ -f "$(pwd)/$1" ]]; then
-        site="$(pwd)/$1"
+        site="file://$(pwd)/$1"
     elif [[ "$1" == '/'* ]]; then
         site="file://$1"
     elif [[ "$1" =~ "^http" ]]; then
@@ -34,5 +34,6 @@
     else
         site="http://$1"
     fi
-    /usr/bin/open -a "/Applications/Google Chrome.app" "$site";
+
+    /usr/bin/open -a "/Applications/Google Chrome.app" "$site"
 ```
