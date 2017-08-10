@@ -46,13 +46,16 @@ def escapeMD(mathstring):
 def escapeInline(s):
     return '\\\\(' + escapeMD(s.group(1)) + '\\\\)'
 
+# Match the date strings with named regexp groups for each field.
 dateRegExp = r'#\((?P<dayname>\w+)\s+(?P<month>\w+)\s+(?P<day>\w+)\s+(?P<hour>[\w:]+):(?P<minute>[\w:]+):(?P<second>[\w:]+)\s+(?P<timezone>\w+)\s+(?P<year>\w+)\)'
 dsmatch = lambda x: re.match(dateRegExp,x)
 
 mathChars  = r'([\w\s\a\\\^\[\$\.\,\|\?\*\+\-\(\)\{\}=/~#]*)'
+# Regexp for \[ \] delimited equations.
 mathRegExp = r'\\\[' + mathChars + r'\\\]'
 mathmatch = lambda x: re.match(mathRegExp,x)
 
+# Regexp for inline \( \) delimited equations.
 mathRegExp_inline = re.compile(r'\\\(' + mathChars + r'\\\)')
 mathmatch_inline = lambda x: mathRegExp_inline.search(x)
 

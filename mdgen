@@ -6,25 +6,27 @@
 # -o option opens the .html file after generation
 # -r option refreshes the current active internet window after file generation
 
+mdgenPath=$(dirname $(readlink -f $(which mdgen)))
+
 if  [ $1 = "-o" ]; then
     # prepend with strapdown.js header and mathjax script
-	cat $(dirname $(which mdgen))/mdgenerator/prepend.html > ${2}.html
+	cat $mdgenPath/mdgenerator/prepend.html > ${2}.html
 	# insert the markdown
 	#pandoc -t html --mathjax $1 >> ${1}.html
-	python3 $(dirname $(which mdgen))/mdgenerator/parse.py $2 >> ${2}.html
+	python3 $mdgenPath/mdgenerator/parse.py $2 >> ${2}.html
 	# append with strapdown footer
-	cat $(dirname $(which mdgen))/mdgenerator/append.html  >> ${2}.html
+	cat $mdgenPath/mdgenerator/append.html  >> ${2}.html
 	# Open the .html file
 	google-chrome ${2}.html
 
 elif [ $1 = "-r" ]; then
 	# prepend with strapdown.js header and mathjax script
-	cat $(dirname $(which mdgen))/mdgenerator/prepend.html > ${2}.html
+	cat $mdgenPath/mdgenerator/prepend.html > ${2}.html
 	# insert the markdown
 	#pandoc -t html --mathjax $1 >> ${1}.html
-	python3 $(dirname $(which mdgen))/mdgenerator/parse.py $2 >> ${2}.html
+	python3 $mdgenPath/mdgenerator/parse.py $2 >> ${2}.html
 	# append with strapdown footer
-	cat $(dirname $(which mdgen))/mdgenerator/append.html  >> ${2}.html
+	cat $mdgenPath/mdgenerator/append.html  >> ${2}.html
 	
 	# refresh all open, visible tabs of chrome
 		# OSX version to refresh visible chrome tab
@@ -43,11 +45,11 @@ elif [ $1 = "-r" ]; then
 
 else
 	# prepend with strapdown.js header and mathjax script
-	cat $(dirname $(which mdgen))/mdgenerator/prepend.html > ${1}.html
+	cat $mdgenPath/mdgenerator/prepend.html > ${1}.html
 	# insert the markdown
 	#pandoc -t html --mathjax $1 >> ${1}.html
-	python3 $(dirname $(which mdgen))/mdgenerator/parse.py $1 >> ${1}.html
+	python3 $mdgenPath/mdgenerator/parse.py $1 >> ${1}.html
 	# append with strapdown footer
-	cat $(dirname $(which mdgen))/mdgenerator/append.html  >> ${1}.html
+	cat $mdgenPath/mdgenerator/append.html  >> ${1}.html
 
 fi
