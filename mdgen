@@ -30,9 +30,7 @@ elif [ $1 = "-r" ]; then
 	cat $mdgenPath/mdgenerator/prepend.html > ${2}.html
 	# If there's a mdheader file in the settings directory
 	mdheader=$mdgenPath/settings/mdheader.md
-	echo lol1
 	if [ -f "$mdheader" ]; then
-		echo lol2
 		# parse it and prepend it to the body of the document.
 		python3 $mdgenPath/mdgenerator/parse.py "$mdheader" >> ${2}.html
 	fi
