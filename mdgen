@@ -11,6 +11,12 @@ mdgenPath=$(dirname $(readlink -f $(which mdgen)))
 if  [ $1 = "-o" ]; then
     # prepend with strapdown.js header and mathjax script
 	cat $mdgenPath/mdgenerator/prepend.html > ${2}.html
+	# If there's a mdheader file in the settings directory
+	mdheader=$mdgenPath/settings/mdheader.md
+	if [ -f "$mdheader" ]; then
+		# parse it and prepend it to the body of the document.
+		python3 $mdgenPath/mdgenerator/parse.py "$mdheader" >> ${1}.html
+	fi
 	# insert the markdown
 	#pandoc -t html --mathjax $1 >> ${1}.html
 	python3 $mdgenPath/mdgenerator/parse.py $2 >> ${2}.html
@@ -22,6 +28,12 @@ if  [ $1 = "-o" ]; then
 elif [ $1 = "-r" ]; then
 	# prepend with strapdown.js header and mathjax script
 	cat $mdgenPath/mdgenerator/prepend.html > ${2}.html
+	# If there's a mdheader file in the settings directory
+	mdheader=$mdgenPath/settings/mdheader.md
+	if [ -f "$mdheader" ]; then
+		# parse it and prepend it to the body of the document.
+		python3 $mdgenPath/mdgenerator/parse.py "$mdheader" >> ${1}.html
+	fi
 	# insert the markdown
 	#pandoc -t html --mathjax $1 >> ${1}.html
 	python3 $mdgenPath/mdgenerator/parse.py $2 >> ${2}.html
@@ -47,6 +59,12 @@ elif [ $1 = "-r" ]; then
 else
 	# prepend with strapdown.js header and mathjax script
 	cat $mdgenPath/mdgenerator/prepend.html > ${1}.html
+	# If there's a mdheader file in the settings directory
+	mdheader=$mdgenPath/settings/mdheader.md
+	if [ -f "$mdheader" ]; then
+		# parse it and prepend it to the body of the document.
+		python3 $mdgenPath/mdgenerator/parse.py "$mdheader" >> ${1}.html
+	fi
 	# insert the markdown
 	#pandoc -t html --mathjax $1 >> ${1}.html
 	python3 $mdgenPath/mdgenerator/parse.py $1 >> ${1}.html
