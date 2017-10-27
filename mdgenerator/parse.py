@@ -59,23 +59,39 @@ mathmatch = lambda x: re.match(mathRegExp,x)
 mathRegExp_inline = re.compile(r'\\\(' + mathChars + r'\\\)')
 mathmatch_inline = lambda x: mathRegExp_inline.search(x)
 
+# The following flag is flipped on upon entering a math environment like the align latex environment
+inEnvironment = 0
+envRegExp = re.compile(r'\\(begin|end){\w+}')
+envmatch  = lambda x: envRegExp.search(x)
+
 fname = sys.argv[1]
 with open(fname) as f:
     for line in f:
         tmstmp = dsmatch(line)
         math   = mathmatch(line)
         math2  = mathmatch_inline(line)
+        # If the line a date string denoted #(...)
         if tmstmp:
+            # format and print it.
             print('<p class="daystamp">'+daystamp(tmstmp)+'</p>')
             print('<p class="timestamp">'+timestamp(tmstmp)+'</p>')
         else:
             math = mathmatch(line)
             math2 = mathRegExp_inline.search(line)
             
-            if math:
+            # At the beginning of an environment, flip the env flag.
+            if envmatch(line):
+                inEnvironment = inEnvironment^1
+            # In an environment, escape the line.
+            elif inEnvironment:
+                line = escapeMD(line)
+            # Otherwise check the line for a default math environment
+            elif math:
                 escapedMathString = escapeMD(math.group(1))
                 line = '\\\\\[' + escapedMathString + '\\\\\]\n'
+            # or an inline environment and escape it.
             elif math2:
                 line = mathRegExp_inline.sub(escapeInline,line)
-
+            
+            # Finally print the line.
             print(line,end="")
