@@ -6,7 +6,12 @@
 # -o option opens the .html file after generation
 # -r option refreshes the current active internet window after file generation
 
-mdgenPath=$(dirname $(readlink -f $(which mdgen)))
+if [[ "$OSTYPE" == "darwin"* ]]; then
+	mdgenPath=$(dirname $(which mdgen))
+else
+	# Linux version
+	mdgenPath=$(dirname $(readlink -f $(which mdgen)))
+fi
 
 if  [ $1 = "-o" ]; then
     # prepend with strapdown.js header and mathjax script
