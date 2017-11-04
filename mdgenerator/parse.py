@@ -60,9 +60,9 @@ mathRegExp_inline = re.compile(r'\\\(' + mathChars + r'\\\)')
 mathmatch_inline = lambda x: mathRegExp_inline.search(x)
 
 # The following flag is flipped on upon entering a math environment like the align latex environment
-inEnvironment = 0
-envRegExp = re.compile(r'\\(begin|end){\w+}')
-envmatch  = lambda x: envRegExp.search(x)
+environmentLevel = 0
+envBegRegExp = re.compile(r'\\begin{\w+}')
+envEndRegExp = re.compile(r'\\end{\w+}')
 
 fname = sys.argv[1]
 with open(fname) as f:
@@ -80,10 +80,12 @@ with open(fname) as f:
             math2 = mathRegExp_inline.search(line)
             
             # At the beginning of an environment, flip the env flag.
-            if envmatch(line):
-                inEnvironment = inEnvironment^1
+            if envBegRegExp.search(line):
+                environmentLevel = environmentLevel + 1
+            elif envEndRegExp.search(line):
+                environmentLevel = environmentLevel - 1
             # In an environment, escape the line.
-            elif inEnvironment:
+            elif (environmentLevel > 0):
                 line = escapeMD(line)
             # Otherwise check the line for a default math environment
             elif math:
