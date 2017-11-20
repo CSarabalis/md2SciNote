@@ -3,7 +3,9 @@
 **md2notes** is a rude little python program that converts notes with latex taken in markdown into html using [strapdown.js](http://strapdownjs.com/) and [MathJax](https://www.mathjax.org/).  
 
 **Syntax:**
+* [Markdown syntax](https://daringfireball.net/projects/markdown/) is used for headings, tables, links, images, etc.
 * Math is delimited by `\(` and `\)` (inline) and `\[` and `\]` and is rendered with MathJax.
+* Nested latex environments such as \begin{align}...\end{align} are supported.
 * Output from the linux `date` command is formatted by the parser by including a line with `#(your_date_here)`.
 
 **Terminal Commands:**
