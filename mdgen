@@ -13,37 +13,44 @@ else
 	mdgenPath=$(dirname $(readlink -f $(which mdgen)))
 fi
 
+# Strip the .md file extension from the filename.
+if [ $1 = "-o" -o $1 = "-r" ]; then
+	fileName=$(expr "$2" : '\([a-zA-Z0-9]*\).*')
+else
+	fileName="$(expr "$1" : '\([a-zA-Z0-9]*\).*')"
+fi
+
 if  [ $1 = "-o" ]; then
     # prepend with strapdown.js header and mathjax script
-	cat $mdgenPath/mdgenerator/prepend.html > ${2}.html
+	cat $mdgenPath/mdgenerator/prepend.html > $fileName.html
 	# If there's a mdheader file in the settings directory
 	mdheader=$mdgenPath/settings/mdheader.md
 	if [ -f "$mdheader" ]; then
 		# parse it and prepend it to the body of the document.
-		python3 $mdgenPath/mdgenerator/parse.py "$mdheader" >> ${2}.html
+		python3 $mdgenPath/mdgenerator/parse.py "$mdheader" >> $fileName.html
 	fi
 	# insert the markdown
 	#pandoc -t html --mathjax $1 >> ${1}.html
-	python3 $mdgenPath/mdgenerator/parse.py $2 >> ${2}.html
+	python3 $mdgenPath/mdgenerator/parse.py $2 >> $fileName.html
 	# append with strapdown footer
-	cat $mdgenPath/mdgenerator/append.html  >> ${2}.html
+	cat $mdgenPath/mdgenerator/append.html  >> $fileName.html
 	# Open the .html file
-	google-chrome ${2}.html
+	google-chrome $fileName.html
 
 elif [ $1 = "-r" ]; then
 	# prepend with strapdown.js header and mathjax script
-	cat $mdgenPath/mdgenerator/prepend.html > ${2}.html
+	cat $mdgenPath/mdgenerator/prepend.html > $fileName.html
 	# If there's a mdheader file in the settings directory
 	mdheader=$mdgenPath/settings/mdheader.md
 	if [ -f "$mdheader" ]; then
 		# parse it and prepend it to the body of the document.
-		python3 $mdgenPath/mdgenerator/parse.py "$mdheader" >> ${2}.html
+		python3 $mdgenPath/mdgenerator/parse.py "$mdheader" >> $fileName.html
 	fi
 	# insert the markdown
-	#pandoc -t html --mathjax $1 >> ${1}.html
-	python3 $mdgenPath/mdgenerator/parse.py $2 >> ${2}.html
+	#pandoc -t html --mathjax $1 >> $fileName.html
+	python3 $mdgenPath/mdgenerator/parse.py $2 >> $fileName.html
 	# append with strapdown footer
-	cat $mdgenPath/mdgenerator/append.html  >> ${2}.html
+	cat $mdgenPath/mdgenerator/append.html  >> $fileName.html
 	
 	# refresh all open, visible tabs of chrome
 		# OSX version to refresh visible chrome tab
@@ -63,17 +70,18 @@ elif [ $1 = "-r" ]; then
 
 else
 	# prepend with strapdown.js header and mathjax script
-	cat $mdgenPath/mdgenerator/prepend.html > ${1}.html
+	cat $mdgenPath/mdgenerator/prepend.html > $fileName.html
 	# If there's a mdheader file in the settings directory
 	mdheader=$mdgenPath/settings/mdheader.md
 	if [ -f "$mdheader" ]; then
 		# parse it and prepend it to the body of the document.
-		python3 $mdgenPath/mdgenerator/parse.py "$mdheader" >> ${1}.html
+		python3 $mdgenPath/mdgenerator/parse.py "$mdheader" >> $fileName.html
 	fi
+	echo $fileName
 	# insert the markdown
-	#pandoc -t html --mathjax $1 >> ${1}.html
-	python3 $mdgenPath/mdgenerator/parse.py $1 >> ${1}.html
+	#pandoc -t html --mathjax $1 >> $fileName.html
+	python3 $mdgenPath/mdgenerator/parse.py $1 >> $fileName.html
 	# append with strapdown footer
-	cat $mdgenPath/mdgenerator/append.html  >> ${1}.html
+	cat $mdgenPath/mdgenerator/append.html  >> $fileName.html
 
 fi
